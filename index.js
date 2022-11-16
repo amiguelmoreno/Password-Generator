@@ -32,6 +32,20 @@ generateBtn.addEventListener("click", () => {
     );
 });
 
+clipboardBtn.addEventListener("click", () => {
+    const textArea = document.createElement("textarea");
+    const password = resultEl.innerText;
+
+    if (!password) return;
+
+    textArea.value = password;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.remove();
+    alert("Password copied to clipboard!");
+});
+
 function generatePassword(length, upper, lower, number, symbol) {
     let generatedPassword = "";
 
@@ -39,7 +53,7 @@ function generatePassword(length, upper, lower, number, symbol) {
         (item) => Object.values(item)[0]
     );
 
-    if (!checksArr) return "";
+    if (checksArr.length === 0) return "";
 
     for (let i = 0; i < length; i += checksArr.length) {
         checksArr.forEach((type) => {
